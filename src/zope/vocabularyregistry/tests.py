@@ -15,18 +15,20 @@
 """
 import doctest
 import unittest
-import zope.component.testing
+
+from zope.testing import cleanup
 
 def setUp(test):
-    zope.component.testing.setUp()
+    cleanup.setUp()
 
 def tearDown(test):
-    zope.component.testing.tearDown()
+    cleanup.tearDown()
 
 def test_suite():
     return unittest.TestSuite((
-        doctest.DocFileSuite('README.txt',
-                     setUp=setUp, tearDown=tearDown,
-                     optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
-                     ),
-        ))
+        doctest.DocFileSuite(
+            'README.rst',
+            setUp=setUp, tearDown=tearDown,
+            optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
+        ),
+    ))

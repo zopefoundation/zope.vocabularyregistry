@@ -22,56 +22,62 @@ import os
 from setuptools import setup, find_packages
 
 def read(*rnames):
-    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+    with open(os.path.join(os.path.dirname(__file__), *rnames)) as f:
+        return f.read()
 
 setup(
     name='zope.vocabularyregistry',
-    version='1.0.1.dev0',
-    author = 'Zope Corporation and Contributors',
-    author_email = 'zope-dev@zope.org',
-    description = 'Utility-based Vocabulary Registry',
+    version='1.1.0.dev0',
+    author='Zope Corporation and Contributors',
+    author_email='zope-dev@zope.org',
+    description='Utility-based Vocabulary Registry',
     long_description=(
-        read('README.txt')
+        read('README.rst')
         + '\n\n' +
-        read('src', 'zope', 'vocabularyregistry', 'README.txt')
+        read('src', 'zope', 'vocabularyregistry', 'README.rst')
         + '\n\n' +
-        read('CHANGES.txt')
+        read('CHANGES.rst')
         ),
-    license = "ZPL 2.1",
-    keywords = "zope3 schema vocabulary registry",
-    classifiers = [
+    license="ZPL 2.1",
+    keywords="zope3 schema vocabulary registry",
+    classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Zope Public License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: Implementation :: CPython',
+        'Programming Language :: Python :: Implementation :: PyPy',
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Topic :: Internet :: WWW/HTTP',
-        'Framework :: Zope3'],
-    url = 'http://pypi.python.org/pypi/zope.apidoc',
-    packages = find_packages('src'),
-    package_dir = {'':'src'},
-    namespace_packages = ['zope'],
-    install_requires = [
+        'Framework :: Zope3',
+    ],
+    url='http://github.com/zopefoundation/zope.vocabularyregistry',
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
+    namespace_packages=['zope'],
+    install_requires=[
         'setuptools',
         'zope.component',
         'zope.interface',
         'zope.schema',
-        ],
-      extras_require = dict(
+    ],
+      extras_require=dict(
           test=[
-            'zope.testing',
+              'zope.configuration',
+              'zope.testing',
+              'zope.testrunner',
             ],
-          ),
-    include_package_data = True,
+      ),
+    include_package_data=True,
     tests_require=['zope.testing'],
     test_suite='zope.vocabularyregistry.tests.test_suite',
-    zip_safe = False,
-    )
+    zip_safe=False,
+)
