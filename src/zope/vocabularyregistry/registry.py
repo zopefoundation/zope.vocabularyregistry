@@ -29,21 +29,26 @@ class ZopeVocabularyRegistry(object):
         factory = zope.component.getUtility(IVocabularyFactory, name)
         return factory(context)
 
+vocabularyRegistry = None
+
 def _clear():
     """Re-initialize the vocabulary registry."""
     # This should normally only be needed by the testing framework,
     # but is also used for module initialization.
     global vocabularyRegistry
+    # The net effect of these two lines is to have this modules
+    # vocabularyRegistry set to zope.schema.vocabulary.VocabularyRegistry()
     vocabulary._clear()
     vocabularyRegistry = vocabulary.getVocabularyRegistry()
     vocabulary._clear()
+    # Which we immediately replace
     vocabulary.setVocabularyRegistry(ZopeVocabularyRegistry())
 
 _clear()
 
 try:
     from zope.testing import cleanup
-except ImportError:
+except ImportError: # pragma: no cover
     pass
 else:
     cleanup.addCleanUp(_clear)
