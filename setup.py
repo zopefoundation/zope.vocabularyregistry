@@ -69,15 +69,13 @@ setup(
         'zope.interface',
         'zope.schema',
     ],
-      extras_require=dict(
-          test=[
-              'zope.configuration',
-              'zope.testing',
-              'zope.testrunner',
-            ],
-      ),
+    extras_require={
+        'test': [
+            'zope.configuration',
+            'zope.testing',
+            'zope.testrunner',
+        ],
+    },
     include_package_data=True,
-    tests_require=['zope.testing'],
-    test_suite='zope.vocabularyregistry.tests.test_suite',
     zip_safe=False,
 )
