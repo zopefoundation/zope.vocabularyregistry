@@ -26,7 +26,8 @@ class ZopeVocabularyRegistry(object):
 
     def get(self, context, name):
         """See zope.schema.interfaces.IVocabularyRegistry"""
-        factory = zope.component.getUtility(IVocabularyFactory, name)
+        factory = zope.component.getUtility(
+            IVocabularyFactory, name=name, context=context)
         return factory(context)
 
 vocabularyRegistry = None
