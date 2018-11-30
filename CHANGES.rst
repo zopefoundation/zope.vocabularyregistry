@@ -5,9 +5,11 @@
 1.1.0 (unreleased)
 ==================
 
+- Ensure that a convtext is provided when looking up the vocabulary factory.
+
 - Drop support for Python 2.6 and 3.3.
 
-- Add support for Python 3.4, 3.5, 3.6, PyPy and PyPy3.
+- Add support for Python 3.5, 3.6, 3.7, PyPy and PyPy3.
 
 
 1.0.0 (2013-03-01)
