@@ -36,6 +36,15 @@ way:
   [1, 2]
 
 
+If vocabulary is not found, VocabularyRegistryError is raised.
+
+  >>> try:
+  ...     vr.get(None, 'NotAvailable')
+  ... except LookupError as error:
+  ...     print("%s.%s: %s" % (error.__module__, error.__class__.__name__, error))
+  zope.schema.vocabulary.VocabularyRegistryError: unknown vocabulary: 'NotAvailable'
+
+
 We can also use vocabularies defined in local component registries.
 Let's define some local sites with a vocabulary.
 
@@ -90,6 +99,23 @@ up vocabularies from other sites.
 
   >>> context = 7
   >>> with zope.component.hooks.site(local_site_even):
+  ...     voc = getVocabularyRegistry().get(context, 'SomeVocabulary')
+  ...     [term.value for term in voc]
+  [3, 5, 7]
+
+
+If we cannot find a local site for given context, currently active
+site is used.
+
+  >>> from zope.interface.interfaces import ComponentLookupError
+  >>> def raisingGetSiteManager(context=None):
+  ...    if context == 42:
+  ...        raise ComponentLookupError(context)
+  ...    return zope.component.hooks.getSiteManager(context)
+  >>> hook = zope.component.getSiteManager.sethook(raisingGetSiteManager)
+
+  >>> context = 42
+  >>> with zope.component.hooks.site(local_site_odd):
   ...     voc = getVocabularyRegistry().get(context, 'SomeVocabulary')
   ...     [term.value for term in voc]
   [3, 5, 7]
