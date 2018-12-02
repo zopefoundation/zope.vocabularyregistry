@@ -16,12 +16,15 @@ utilities:
   >>> from zope.schema.vocabulary import SimpleTerm
   >>> from zope.schema.vocabulary import SimpleVocabulary
 
-  >>> def SomeVocabulary(context=None):
-  ...     terms = [SimpleTerm(1), SimpleTerm(2)]
-  ...     return SimpleVocabulary(terms)
+  >>> def makeVocabularyFactory(*values):
+  ...     def vocabularyFactory(context=None):
+  ...         terms = [SimpleTerm(v) for v in values]
+  ...         return SimpleVocabulary(terms)
+  ...     return vocabularyFactory
 
-  >>> provideUtility(SomeVocabulary, IVocabularyFactory,
-  ...                name='SomeVocabulary')
+  >>> zope.component.provideUtility(
+  ...     makeVocabularyFactory(1, 2), IVocabularyFactory,
+  ...     name='SomeVocabulary')
 
 Now we can get the vocabulary using standard zope.schema
 way:
@@ -31,6 +34,65 @@ way:
   >>> voc = vr.get(None, 'SomeVocabulary')
   >>> [term.value for term in voc]
   [1, 2]
+
+
+We can also use vocabularies defined in local component registries.
+Let's define some local sites with a vocabulary.
+
+  >>> import zope.component.hooks
+  >>> from zope.component import globalregistry
+  >>> from zope.component.globalregistry import getGlobalSiteManager
+
+  >>> from zope.interface.registry import Components
+  >>> class LocalSite(object):
+  ...   def __init__(self, name):
+  ...      self.sm = Components(
+  ...          name=name, bases=(globalregistry.getGlobalSiteManager(), ))
+  ...
+  ...   def getSiteManager(self):
+  ...       return self.sm
+
+  >>> local_site_even = LocalSite('local_site_even')
+  >>> local_site_even.sm.registerUtility(
+  ...     makeVocabularyFactory(4, 6, 8), IVocabularyFactory,
+  ...     name='SomeVocabulary', event=False)
+
+  >>> local_site_odd = LocalSite('local_site_odd')
+  >>> local_site_odd.sm.registerUtility(
+  ...     makeVocabularyFactory(3, 5, 7), IVocabularyFactory,
+  ...     name='SomeVocabulary', event=False)
+
+
+Vocabularies defined in local component registries can be accessed
+in two ways.
+
+1. Using the registry from within a site.
+
+  >>> with zope.component.hooks.site(local_site_even):
+  ...     voc = getVocabularyRegistry().get(None, 'SomeVocabulary')
+  ...     [term.value for term in voc]
+  [4, 6, 8]
+
+2. Binding to a context that can be used to look up a local site manager.
+
+  >>> from zope.interface.interfaces import IComponentLookup
+  >>> zope.component.provideAdapter(
+  ...    lambda number: ((local_site_even, local_site_odd)[number % 2]).sm,
+  ...    adapts=(int, ), provides=IComponentLookup)
+
+  >>> context = 4
+  >>> voc = getVocabularyRegistry().get(context, 'SomeVocabulary')
+  >>> [term.value for term in voc]
+  [4, 6, 8]
+
+Binding to a context takes precedence over active site, so we can look
+up vocabularies from other sites.
+
+  >>> context = 7
+  >>> with zope.component.hooks.site(local_site_even):
+  ...     voc = getVocabularyRegistry().get(context, 'SomeVocabulary')
+  ...     [term.value for term in voc]
+  [3, 5, 7]
 
 
 Configuration
