@@ -15,19 +15,48 @@
 """
 import zope.component
 from zope.interface import implementer
+from zope.interface.interfaces import ComponentLookupError
 from zope.schema.interfaces import IVocabularyRegistry
 from zope.schema import vocabulary
 from zope.schema.interfaces import IVocabularyFactory
 
 @implementer(IVocabularyRegistry)
 class ZopeVocabularyRegistry(object):
-    """IVocabularyRegistry that supports global and local utilities."""
+    """IVocabularyRegistry that supports global and local utilities.
+
+    For contexts that have associated local site manager (component registry),
+    vocabularies are looked up there.  For all other contexts, vocabularies are
+    looked up in the currently active local or global site manager.
+    """
     __slots__ = ()
 
     def get(self, context, name):
         """See zope.schema.interfaces.IVocabularyRegistry"""
-        factory = zope.component.getUtility(
-            IVocabularyFactory, name=name, context=context)
+
+        # Find component registry for the context
+        globalSiteManager = zope.component.getGlobalSiteManager()
+        try:
+            contextSiteManager = zope.component.getSiteManager(context)
+        except ComponentLookupError:
+            contextSiteManager = globalSiteManager
+
+        if contextSiteManager is not globalSiteManager:
+            # Context has an associated component registry, let's search
+            # for vocabularies defined there.
+            sm = contextSiteManager
+        else:
+            # Component registry for the context is either globalSiteManager,
+            # or it is not found.
+            #
+            # Revert to default getUtility() behaviour - pick manager
+            # for the active site, or fall back to global registry.
+            sm = zope.component.getSiteManager()
+
+        # Find the vocabulary factory
+        factory = sm.queryUtility(IVocabularyFactory, name, None)
+        if factory is None:
+            raise vocabulary.VocabularyRegistryError(name)
+
         return factory(context)
 
 vocabularyRegistry = None
