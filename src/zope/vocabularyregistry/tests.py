@@ -15,13 +15,16 @@
 """
 import doctest
 import unittest
+import zope.component.hooks
 
 from zope.testing import cleanup
 
 def setUp(test):
     cleanup.setUp()
+    zope.component.hooks.setHooks()
 
 def tearDown(test):
+    zope.component.hooks.resetHooks()
     cleanup.tearDown()
 
 def test_suite():
