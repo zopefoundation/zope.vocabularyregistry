@@ -2,10 +2,12 @@
  CHANGES
 =========
 
-1.2.0 (unreleased)
+1.1.1 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Important bugfix for the new feature introduced in 1.1.0: Fall back to
+  active site manager if no local site manager can be looked up for provided
+  context.
 
 
 1.1.0 (2018-11-30)
