@@ -19,7 +19,7 @@
 1.1.0 (2018-11-30)
 ==================
 
-- Ensure that a convtext is provided when looking up the vocabulary factory.
+- Ensure that a context is provided when looking up the vocabulary factory.
 
 - Drop support for Python 2.6 and 3.3.
 
