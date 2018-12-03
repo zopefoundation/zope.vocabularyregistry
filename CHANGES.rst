@@ -2,7 +2,7 @@
  CHANGES
 =========
 
-1.1.1 (unreleased)
+1.1.1 (2018-12-03)
 ==================
 
 - Important bugfix for the new feature introduced in 1.1.0: Fall back to
