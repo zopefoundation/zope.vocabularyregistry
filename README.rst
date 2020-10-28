@@ -10,8 +10,8 @@
         :target: https://pypi.org/project/zope.vocabularyregistry/
         :alt: Supported Python versions
 
-.. image:: https://travis-ci.org/zopefoundation/zope.vocabularyregistry.svg?branch=master
-        :target: https://travis-ci.org/zopefoundation/zope.vocabularyregistry
+.. image:: https://travis-ci.com/zopefoundation/zope.vocabularyregistry.svg?branch=master
+        :target: https://travis-ci.com/zopefoundation/zope.vocabularyregistry
 
 .. image:: https://coveralls.io/repos/github/zopefoundation/zope.vocabularyregistry/badge.svg?branch=master
         :target: https://coveralls.io/github/zopefoundation/zope.vocabularyregistry?branch=master
