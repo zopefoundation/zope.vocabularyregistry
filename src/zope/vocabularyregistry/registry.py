@@ -20,6 +20,7 @@ from zope.schema.interfaces import IVocabularyRegistry
 from zope.schema import vocabulary
 from zope.schema.interfaces import IVocabularyFactory
 
+
 @implementer(IVocabularyRegistry)
 class ZopeVocabularyRegistry(object):
     """IVocabularyRegistry that supports global and local utilities.
@@ -59,7 +60,9 @@ class ZopeVocabularyRegistry(object):
 
         return factory(context)
 
+
 vocabularyRegistry = None
+
 
 def _clear():
     """Re-initialize the vocabulary registry."""
@@ -74,11 +77,12 @@ def _clear():
     # Which we immediately replace
     vocabulary.setVocabularyRegistry(ZopeVocabularyRegistry())
 
+
 _clear()
 
 try:
     from zope.testing import cleanup
-except ImportError: # pragma: no cover
+except ImportError:  # pragma: no cover
     pass
 else:
     cleanup.addCleanUp(_clear)
