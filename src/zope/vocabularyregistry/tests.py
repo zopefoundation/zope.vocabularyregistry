@@ -19,19 +19,22 @@ import zope.component.hooks
 
 from zope.testing import cleanup
 
+
 def setUp(test):
     cleanup.setUp()
     zope.component.hooks.setHooks()
 
+
 def tearDown(test):
     zope.component.hooks.resetHooks()
     cleanup.tearDown()
+
 
 def test_suite():
     return unittest.TestSuite((
         doctest.DocFileSuite(
             'README.rst',
             setUp=setUp, tearDown=tearDown,
-            optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
+            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
         ),
     ))
