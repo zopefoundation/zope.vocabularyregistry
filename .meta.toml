@@ -1,0 +1,31 @@
+# Generated from:
+# https://github.com/zopefoundation/meta/tree/master/config/pure-python
+[meta]
+template = "pure-python"
+commit-id = "23625f0c67c2171441dbe2069830d3b3fdb17757"
+
+[python]
+with-windows = false
+with-pypy = true
+with-future-python = false
+with-legacy-python = true
+with-sphinx-doctests = false
+
+[tox]
+use-flake8 = true
+
+[coverage]
+fail-under = 100
+
+[flake8]
+additional-config = [
+    "# F401  imported but unused",
+    "per-file-ignores =",
+    "    src/zope/vocabularyregistry/__init__.py: F401",
+    ]
+
+[manifest]
+additional-rules = [
+    "recursive-include src *.rst",
+    "recursive-include src *.zcml",
+    ]
