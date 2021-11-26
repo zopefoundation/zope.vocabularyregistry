@@ -2,7 +2,7 @@
  CHANGES
 =========
 
-1.2.0 (unreleased)
+1.2.0 (2021-11-26)
 ==================
 
 - Add support for Python 3.8, 3.9, and 3.10.
