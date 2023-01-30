@@ -16,13 +16,13 @@
 import zope.component
 from zope.interface import implementer
 from zope.interface.interfaces import ComponentLookupError
-from zope.schema.interfaces import IVocabularyRegistry
 from zope.schema import vocabulary
 from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.interfaces import IVocabularyRegistry
 
 
 @implementer(IVocabularyRegistry)
-class ZopeVocabularyRegistry(object):
+class ZopeVocabularyRegistry:
     """IVocabularyRegistry that supports global and local utilities.
 
     For contexts that have associated local site manager (component registry),
