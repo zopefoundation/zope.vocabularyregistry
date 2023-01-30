@@ -15,8 +15,8 @@
 """
 import doctest
 import unittest
-import zope.component.hooks
 
+import zope.component.hooks
 from zope.testing import cleanup
 
 
