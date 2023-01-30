@@ -22,7 +22,7 @@ from zope.schema.interfaces import IVocabularyRegistry
 
 
 @implementer(IVocabularyRegistry)
-class ZopeVocabularyRegistry(object):
+class ZopeVocabularyRegistry:
     """IVocabularyRegistry that supports global and local utilities.
 
     For contexts that have associated local site manager (component registry),
