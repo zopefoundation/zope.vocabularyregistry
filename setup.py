@@ -32,8 +32,8 @@ def read(*rnames):
 setup(
     name='zope.vocabularyregistry',
     version='2.0.dev0',
-    author='Zope Corporation and Contributors',
-    author_email='zope-dev@zope.org',
+    author='Zope Foundation and Contributors',
+    author_email='zope-dev@zope.dev',
     description='Utility-based Vocabulary Registry',
     long_description=(
         read('README.rst')
@@ -42,7 +42,7 @@ setup(
         + '\n\n' +
         read('CHANGES.rst')
     ),
-    license="ZPL 2.1",
+    license="ZPL-2.1",
     keywords="zope3 schema vocabulary registry",
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -51,11 +51,11 @@ setup(
         'License :: OSI Approved :: Zope Public License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Natural Language :: English',
@@ -67,7 +67,7 @@ setup(
     packages=find_packages('src'),
     package_dir={'': 'src'},
     namespace_packages=['zope'],
-    python_requires='>=3.7',
+    python_requires='>=3.9',
     install_requires=[
         'setuptools',
         'zope.component',
