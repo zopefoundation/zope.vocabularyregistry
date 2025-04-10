@@ -82,7 +82,7 @@ _clear()
 
 try:
     from zope.testing import cleanup
-except ImportError:  # pragma: no cover
+except ModuleNotFoundError:  # pragma: no cover
     pass
 else:
     cleanup.addCleanUp(_clear)
