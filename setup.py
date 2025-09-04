@@ -31,7 +31,7 @@ def read(*rnames):
 
 setup(
     name='zope.vocabularyregistry',
-    version='2.0.dev0',
+    version='2.0',
     author='Zope Foundation and Contributors',
     author_email='zope-dev@zope.dev',
     description='Utility-based Vocabulary Registry',
