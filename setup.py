@@ -20,7 +20,6 @@
 """
 import os
 
-from setuptools import find_packages
 from setuptools import setup
 
 
@@ -31,7 +30,7 @@ def read(*rnames):
 
 setup(
     name='zope.vocabularyregistry',
-    version='2.1.dev0',
+    version='3.0.dev0',
     author='Zope Foundation and Contributors',
     author_email='zope-dev@zope.dev',
     description='Utility-based Vocabulary Registry',
@@ -64,9 +63,6 @@ setup(
         'Framework :: Zope :: 3',
     ],
     url='http://github.com/zopefoundation/zope.vocabularyregistry',
-    packages=find_packages('src'),
-    package_dir={'': 'src'},
-    namespace_packages=['zope'],
     python_requires='>=3.9',
     install_requires=[
         'setuptools',
@@ -78,7 +74,7 @@ setup(
         'test': [
             'zope.configuration',
             'zope.testing',
-            'zope.testrunner',
+            'zope.testrunner >= 6.4',
         ],
     },
     include_package_data=True,
